@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import "./App.css";
+import TaskForm from "./components/TaskForm";
+import store from "./store/store";
+import TaskList from "./components/TaskList";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import TaskModification from "./components/TaskModification";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <BrowserRouter>
+        <Routes>
+          <Route
+            path={"/"}
+            element={
+              <>
+                <TaskForm />
+                <TaskList />
+              </>
+            }
+          />
+          <Route path={"/:id"} element={<TaskModification />}/>
+        </Routes>
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 }
 
